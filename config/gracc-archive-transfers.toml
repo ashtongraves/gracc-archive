@@ -1,25 +1,22 @@
 [AMQP]
 
-
 # Host information
 # # scheme://username:password@host:port/vhost
 #url = "amqps://amqpusername:amqppassword@amqp.exapmle.com:5671/vhost"
 url = "REDACTED"
 
 # Exchange to listen for raw records
-exchange = 'gracc.osg.raw'
+exchange = 'gracc.osg-transfer.raw'
 
 # Queue to use to listen to raw records
-queue = 'gracc.osg.archive'
+queue = 'gracc.osg-transfer.archive'
 
 [Directories]
-
-
 # Location of in-progress tarfiles should be written.
-sandbox = '/data/raw/sandbox'
+sandbox = '/data/transfers/sandbox'
 
 # Output location of finalized tarball
-output = '/data/raw/output'
+output = '/data/transfers/output'
 
 # Destination of backup
-dest = 'gsiftp://fndca1.fnal.gov/pnfs/fs/usr/fermigrid/gratia/gracc-jobs-raw/'
+dest = 'gsiftp://fndca1.fnal.gov/pnfs/fs/usr/fermigrid/gratia/gracc-transfers-raw/'

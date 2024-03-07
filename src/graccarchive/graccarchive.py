@@ -169,7 +169,7 @@ class ArchiverAgent(object):
         :param str|unicode queue_name: The name of the queue to declare.
 
         """
-        self._chan.queue_declare(self._config["AMQP"]['queue'], durable=True, auto_delete=self._config['AMQP'].get('auto_delete', False), callback=self.on_queue_declareok)
+        self._chan.queue_declare(self._config["AMQP"]['queue']+ 'test', durable=True, auto_delete=self._config['AMQP'].get('auto_delete', False), callback=self.on_queue_declareok)
 
     def on_queue_declareok(self, method_frame):
         """Method invoked by pika when the Queue.Declare RPC call made in
@@ -182,7 +182,7 @@ class ArchiverAgent(object):
 
         """
         print("Queue declare ok")
-        self._chan.queue_bind(self._config["AMQP"]['queue'], self._config["AMQP"]['exchange'], callback=self.on_bindok)
+        self._chan.queue_bind(self._config["AMQP"]['queue'] + 'test', self._config["AMQP"]['exchange'], callback=self.on_bindok)
 
     def on_bindok(self, unused_frame):
         """Invoked by pika when the Queue.Bind method has completed. At this
@@ -209,7 +209,7 @@ class ArchiverAgent(object):
         """
         print("Starting consuming")
         self._chan.add_on_cancel_callback(self.on_consumer_cancelled)
-        self._consumer_tag = self._chan.basic_consume(self._config["AMQP"]['queue'], on_message_callback=self.receiveMsg)
+        self._consumer_tag = self._chan.basic_consume(self._config["AMQP"]['queue'] + 'test', on_message_callback=self.receiveMsg)
 
     def on_consumer_cancelled(self, method_frame):
         """Invoked by pika when RabbitMQ sends a Basic.Cancel for a consumer
@@ -304,8 +304,6 @@ def main():
                         action="store_true", dest="dev")
     args = parser.parse_args()
     config = {}
-    if not args.config:
-        args.config = ["/etc/graccarchive/config.toml"]
     for conffile in args.config:
         with open(conffile) as fp:
             config.update(toml.load(fp))

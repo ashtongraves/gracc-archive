@@ -2,3 +2,5 @@ src/graccarchive/*.pyc
 output
 gracc
 sandbox
+unredacted
+data
