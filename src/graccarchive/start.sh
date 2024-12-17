@@ -1,2 +1,0 @@
-#!/bin/sh
-python3 graccarchive.py -c "$1/gracc-archive-ps-itb.toml" & python3 graccarchive.py -c "$1/gracc-archive-ps-prod.toml" & python3 graccarchive.py -c "$1/gracc-archive-raw.toml" & python3 graccarchive.py -c "$1/gracc-archive-transfers.toml"
